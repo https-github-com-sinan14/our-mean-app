@@ -1,0 +1,35 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">ICTAK</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+      </div>
+      <div class="navbar-nav ml-auto">
+        <a class="nav-link" routerLink="/login" *ngIf="!_auth.loggedIn()"
+          >Login</a
+        >
+        <a class="nav-link" routerLink="/register" *ngIf="!_auth.loggedIn()"
+          >register</a
+        >
+        <a
+          class="nav-link"
+          style="cursor: pointer"
+          *ngIf="_auth.loggedIn()"
+          (click)="logoutUser()"
+          >Logout</a
+        >
+      </div>
+    </div>
+  </div>
+</nav>
