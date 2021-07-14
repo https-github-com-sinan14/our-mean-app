@@ -15,25 +15,24 @@ export class StudentRegisterComponent implements OnInit {
     private _fb: FormBuilder,
     private _auth: AuthService
   ) {}
-  passwordReg =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/;
   emailReg = /^[a-z0-9.%+]+@[a-z09.-]+.[a-z]{2,4}/;
-  phoneReg = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  phoneReg = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;F
 
   ngOnInit(): void {}
   registerForm = this._fb.group({
     Name: ['', Validators.required],
     Email: ['', [Validators.required, Validators.pattern(this.emailReg)]],
-    Phone: ['', Validators.required,Validators.pattern(this.phoneReg)],
+    Phone: ['', Validators.required, Validators.pattern(this.phoneReg)],
     Sex: ['', Validators.required],
     Course: ['', Validators.required],
     HighestQualification: ['', Validators.required],
+    SkillSet:['',Validators.required],
     PassOfYear: ['', Validators.required],
     EmploymentStatus: ['', Validators.required],
     State: ['', Validators.required],
-    District:['',Validators.required],
-    Post:['',Validators.required],
-    Password: ['', [Validators.required, Validators.pattern(this.passwordReg)]],
+    District: ['', Validators.required],
+    Post: ['', Validators.required],
+    PinCode: ['', [Validators.required]],
   });
 
   registerStudent() {

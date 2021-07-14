@@ -8,15 +8,7 @@ const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/userRoutes");
 const app = express();
 
-// mongoose.connect(
-//   "mongodb+srv://userone:sinu1@ictakfiles.g1s0x.mongodb.net/ictAng1?retryWrites=true&w=majority",
-//   {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useUnifiedTopology: true,
-//     useFindAndModify: false,
-//   }
-// );
+
 //*************************** connecting our database ****************************
 const dbUrl ='mongodb://localhost:27017/project-mean';
 

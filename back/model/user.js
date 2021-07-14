@@ -28,11 +28,14 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  SkilSet:{
+    type:String,
+    
+  },
   PassOfYear: {
-    type: Date,
-    min: "2010-01-01",
-
-    required: true,
+    type: Number,
+    required:true
+   
   },
   EmploymentStatus: {
     type: String,
@@ -51,8 +54,8 @@ const UserSchema = new Schema({
     required: true,
   },
 
-  Password: {
-    type: String,
+  PinCode: {
+    type: Number,
   },
 });
 

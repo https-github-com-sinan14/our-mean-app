@@ -27,16 +27,22 @@
               <label class="form-label">Sex:</label>
               <select class="form-control" formControlName="Sex">
                 <option ddd value="female">female</option>
+
                 <option value="male">male</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label">Interested Course</label>
+
               <select class="form-control" formControlName="Course">
                 <option disabled>--Please choose an option--</option>
+
                 <option value="MeanStack">Mean Stack</option>
+
                 <option value="Cybersecurity">Cyber Security</option>
+
                 <option value="Data Science">Data Science</option>
+
                 <option value="MachineLearining">Machine Learining</option>
               </select>
             </div>
@@ -60,12 +66,47 @@
               </select>
             </div>
             <div class="form-group">
+              <label class="form-label">What are the skill do you have?</label>
+              <textarea
+                formControlName="SkillSet"
+                class="form-control"
+                cols="50"
+                rows="3"
+                placeholder="provide your skills onebyone adding a comma after each skill, you can include soft skills too"
+              ></textarea>
+            </div>
+            <!-- <div class="form-group">
+              <input form type="checkbox" id="Python" value="Python" />
+              <label for="Python">Python</label>
+              <input type="checkbox" id="Java" value="Java" />
+              <label for="Java">Java</label>
+              <input type="checkbox" id="Python" value="Python" />
+              <label for="JavaScript">JavaScript</label>
+              <input type="checkbox" id="JavaScript" value="JavaScript" />
+
+            </div> -->
+            <!-- <div class="form-group">
+              <label class="form-label">Skill Sets:</label>
+              <select class="form-control" formControlName="SkillSet" multiple>
+                <option disabled>
+                  To choose multiple options Hold shift and click
+                </option>
+
+                <option value="Java">Java</option>
+                <option value="Python">Python</option>
+                <option value="JavaScript">JavaScript</option>
+              </select>
+            </div> -->
+            <div class="form-group">
               <label class="form-label">Pass of year:</label>
               <input
                 class="form-control"
-                type="date"
-                min="2010-01-01"
-                max="2022-04-30"
+                type="number"
+                min="2010"
+                max="2021"
+                step="1"
+                value="2021"
+                placeholder="provide year you passed in number"
                 formControlName="PassOfYear"
               />
             </div>
@@ -135,20 +176,25 @@
               <input class="form-control" type="text" formControlName="Post" />
             </div>
             <div>
-              <label class="form-label">Password:</label>
+              <label class="form-label">PinCode:</label>
               <input
                 class="form-control"
-                type="password"
-                formControlName="Password"
+                type="number"
+                min="000000"
+                max="999999"
+                formControlName="PincCode"
+                placeholder="six digit zipcode"
               />
             </div>
-            <button
-              [disabled]="registerForm.invalid"
-              type="submit"
-              class="btn btn-success float-right"
-            >
-              register
-            </button>
+            <div class="col-xs-12 text-center mt-4 mb-2">
+              <button
+                [disabled]="registerForm.invalid"
+                type="submit"
+                class="btn btn-success float-right"
+              >
+                register
+              </button>
+            </div>
           </form>
         </div>
       </div>

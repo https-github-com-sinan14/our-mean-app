@@ -1,4 +1,4 @@
-<div class="py-5">
+<div class="py-5  d-flex flex-column vh-100">
   <div class="row">
     <div class="col-md-6 mx-auto">
       <span class="anchor" id="formLogin"></span>
@@ -22,13 +22,15 @@
               />
             </div>
 
-            <button
-              [disabled]="loginForm.invalid"
-              type="submit"
-              class="btn btn-success float-right"
-            >
-              Login
-            </button>
+            <div class="col-xs-12 text-center mt-4 mb-2">
+              <button
+                [disabled]="loginForm.invalid"
+                type="submit"
+                class="btn btn-success float-right"
+              >
+                Login
+              </button>
+            </div>
           </form>
         </div>
         <!--/card-block-->
