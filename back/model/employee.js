@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+const EmployeeSchema = new Schema({
   Name: {
     type: String,
     required: true,
@@ -20,10 +20,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  Course: {
-    type: String,
-    required: true,
-  },
+
   HighestQualification: {
     type: String,
     required: true,
@@ -32,15 +29,8 @@ const UserSchema = new Schema({
     type:String,
     
   },
-  PassOfYear: {
-    type: Number,
-    required:true
-   
-  },
-  EmploymentStatus: {
-    type: String,
-    required: true,
-  },
+ 
+
   State: {
     type: String,
     required: true,
@@ -56,7 +46,13 @@ const UserSchema = new Schema({
 
   PinCode: {
     type: Number,
+    required:true
+
   },
+  Password:{
+      type:String,
+      required:true
+  }
 });
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("Employee", EmployeeSchema);

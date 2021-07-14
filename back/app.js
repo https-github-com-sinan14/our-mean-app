@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 const session = require('express-session');
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const userRoutes = require("./routes/userRoutes");
+const studentRoutes = require("./routes/studentRoutes");
 const app = express();
 
 
@@ -39,7 +39,7 @@ const sessionConfig = {
   }
 }
 app.use(session(sessionConfig));
-app.use("/", userRoutes);
+app.use("/", studentRoutes);
 
 app.listen(port, () => {
   console.log("Serving on port number" + port);

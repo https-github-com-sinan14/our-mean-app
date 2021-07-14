@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
-const UserData = require("../model/user");
+const StudentData = require("../model/student");
 const { verifyToken } = require("../middleware");
 
 router.post('/login', function (req, res) {
@@ -15,7 +15,7 @@ router.post('/login', function (req, res) {
         res.send({ status: true, token, role: req.session.role });
 
     } else {
-        UserData.findOne({ Email: Email, Password: Password }, function (err, user) {
+        StudentData.findOne({ Email: Email, Password: Password }, function (err, user) {
             if (err) {
                 res.send({ status: false, data: 'you havenot registered' });
             }
@@ -35,7 +35,7 @@ router.post('/login', function (req, res) {
 //************************ register route **********************************************/
 router.post('/register', function (req, res) {
     console.log(req.body.user)
-    const user = new UserData(req.body.user)
+    const user = new StudentData(req.body.user)
     user.save().then(function (data) {
         res.send(true);
     }).catch(function (error) {
