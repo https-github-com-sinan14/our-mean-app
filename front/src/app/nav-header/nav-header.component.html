@@ -22,6 +22,9 @@
         <a class="nav-link" routerLink="/register" *ngIf="!_auth.loggedIn()"
           >register</a
         >
+        <a class="nav-link" routerLink="/admin" *ngIf="!_auth.loggedIn()"
+          >Admin</a
+        >
         <a
           class="nav-link"
           style="cursor: pointer"
