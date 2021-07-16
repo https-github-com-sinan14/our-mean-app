@@ -25,11 +25,9 @@ const EmployeeSchema = new Schema({
     type: String,
     required: true,
   },
-  SkilSet:{
-    type:String,
-    
+  SkilSet: {
+    type: String,
   },
- 
 
   State: {
     type: String,
@@ -46,13 +44,12 @@ const EmployeeSchema = new Schema({
 
   PinCode: {
     type: Number,
-    required:true
-
+    required: true,
   },
-  Password:{
-      type:String,
-      required:true
-  }
+  Password: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Employee", EmployeeSchema);

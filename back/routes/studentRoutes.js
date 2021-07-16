@@ -7,7 +7,7 @@ const { verifyToken } = require("../middleware");
 router.post('/login', function (req, res) {
     console.log(req.body);
     const { Email,Password } = req.body
-    if (Email == 'Admin@gmail.com' && Password == 'Admin@11') {
+    if (Email == 'admin@gmail.com' && Password == 'Admin@11') {
         req.session.role = 'admin';
         console.log("admin login success")
         const payload = { subject: Email + Password, admin:true }

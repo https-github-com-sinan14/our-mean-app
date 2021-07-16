@@ -22,7 +22,7 @@ import { FooterComponent } from './footer/footer.component';
     StudentRegisterComponent,
     NavHeaderComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

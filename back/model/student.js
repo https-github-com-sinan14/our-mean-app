@@ -9,12 +9,10 @@ const StudentSchema = new Schema({
   Email: {
     type: String,
     required: true,
-    
   },
   Phone: {
     type: String,
     required: true,
-    
   },
   Sex: {
     type: String,
@@ -24,18 +22,17 @@ const StudentSchema = new Schema({
     type: String,
     required: true,
   },
+  SkilSet: {
+    type: String,
+  },
   HighestQualification: {
     type: String,
     required: true,
   },
-  SkilSet:{
-    type:String,
-    
-  },
+
   PassOfYear: {
     type: Number,
-    required:true
-   
+    required: true,
   },
   EmploymentStatus: {
     type: String,
@@ -56,12 +53,8 @@ const StudentSchema = new Schema({
 
   PinCode: {
     type: Number,
-    required:true
+    required: true,
   },
-  Password:{
-    type:String,
-    required:true
-  }
 });
 
 module.exports = mongoose.model("Student", StudentSchema);

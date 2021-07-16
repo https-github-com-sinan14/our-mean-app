@@ -17,8 +17,6 @@ export class StudentRegisterComponent implements OnInit {
   ) {}
   emailReg = /^[a-z0-9.%+]+@[a-z09.-]+.[a-z]{2,4}/;
   phoneReg = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-  pswReg =
-  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/;
 
   ngOnInit(): void {}
   registerForm = this._fb.group({
@@ -34,8 +32,7 @@ export class StudentRegisterComponent implements OnInit {
     State: ['', Validators.required],
     District: ['', Validators.required],
     Post: ['', Validators.required],
-    PinCode: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(6)]],
-    Password:['',[Validators.required,Validators.pattern(this.pswReg)]]
+    PinCode: ['', [Validators.required,Validators.minLength(6)]],
   });
 
   registerStudent() {
