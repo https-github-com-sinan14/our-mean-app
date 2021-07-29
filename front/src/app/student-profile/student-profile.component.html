@@ -1,0 +1,258 @@
+<section>
+  <!-- Student Profile -->
+  <div class="student-profile py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card shadow-sm">
+            <div class="card-header bg-transparent text-center">
+              <img
+                class="profile_img"
+                src="https://source.unsplash.com/600x300/?student"
+                alt="student dp"
+              />
+
+              <h3>{{ Student.Name }}</h3>
+            </div>
+            <div class="card-body">
+              <p class="mb-0">
+                <strong class="pr-1">Student ID:</strong>321000001
+              </p>
+              <p class="mb-0"><strong class="pr-1">Batch:</strong>Mean-Stack</p>
+              <p class="mb-0"><strong class="pr-1">Section:</strong>Retail</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card shadow-sm">
+            <div class="card-header bg-transparent border-0">
+              <h3 class="mb-0">
+                <i class="fa fa-address-card mr-1"></i>General Information
+              </h3>
+            </div>
+            <form (ngSubmit)="updateProfile()" >
+              <div class="card-body pt-0">
+                <table class="table table-bordered table-responsive">
+                  <tr>
+                    <th width="30%">Student Name</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        type="text"
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="Student.Name"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Email</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        type="text"
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="Student.Email"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Phone</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        type="text"
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="Student.Phone"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Date Of Birth</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="Student.DOB "
+                        onfocus="(this.type='date')"
+                        onblur="(this.type='text')"
+
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">State</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="Student.State"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th width="30%">Highest Qualification</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="Student.HighestQualification"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Pass Out Year</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        type="number"
+                        min="2010"
+                        max="2021"
+                        step="1"
+                        [ngModelOptions]="{ standalone: true }"
+                        [(ngModel)]="Student.PassOfYear"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Skill Set</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        [(ngModel)]="Student.SkillSet"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Employment Status</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        [(ngModel)]="Student.EmploymentStatus"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Technology Training</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        [(ngModel)]="Student.Course"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <th width="30%">Password</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        [ngModelOptions]="{ standalone: true }"
+                        type="text"
+                        [(ngModel)]="Student.Password"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                    <th width="30%">Year</th>
+                    <td width="2%">:</td>
+                    <td [class.editModeOn]="readonly == false">
+                      <input
+                        type="number"
+                        min="2010"
+                        max="2022"
+                        step="1"
+                        [(ngModel)]="Student.Year"
+                        [ngModelOptions]="{ standalone: true }"
+                        [ngClass]="{
+                          inputFocus: readonly == false,
+                          inputBorderAtReadOnly: readonly
+                        }"
+                        [readonly]="readonly"
+                      />
+                    </td>
+                  </tr> -->
+                </table>
+                <div *ngIf="readonly">
+                  <button (click)="update()" class="btn btn-sm btn-warning">
+                    Update
+                  </button>
+                  <button type="button" (click)="deleteProfile()"  class="btn btn-sm btn-danger">Delete</button>
+                </div>
+                <div *ngIf="readonly == false">
+                  <button  class="btn btn-success btn-sm">
+                    Save
+                  </button>
+                  <button type="button" (click)="discard()" class="btn btn-info btn-sm">
+                    Discard
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- partial -->
+</section>

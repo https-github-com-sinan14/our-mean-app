@@ -17,6 +17,7 @@ ngOnInit(){}
   constructor(public _auth: AuthService, private _router: Router) {}
   logoutUser() {
     localStorage.removeItem('token');
+    localStorage.clear();
     Swal.fire('we will miss you').then(() => {
       this._router.navigate(['/login']);
     });

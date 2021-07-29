@@ -1,0 +1,64 @@
+<div class="container-fluid">
+
+  <table #dataTable id="display" style="width:100%">
+      <thead>
+          <tr class="shadow p-3 mb-5 bg-white rounded">
+              <th>Image</th>
+              <th>Name</th>
+              <th>Course</th>
+              <th>Highest Qualification</th>
+              <th>PassOut Year</th>
+              <th>District</th>
+              <th>More Info</th>
+          </tr>
+          <tr class="shadow p-3 mb-5 bg-white rounded">
+            <th></th>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Highest Qualification</th>
+            <th>PassOut Year</th>
+            <th>District</th>
+            <th>More Info</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img class="avatar" src="assets/avatar.png"></td>
+            <td>Anand</td>
+            <td>MeanStack</td>
+            <td>BTech CS</td>
+            <td>2017</td>
+            <td>Alappuzha</td>
+            <td class="details-control"></td>
+        </tr> 
+        <tr>
+          <td><img class="avatar" src="assets/avatar.png"></td>
+          <td>Sinan</td>
+          <td>MeanStack</td>
+          <td>PG CS</td>
+          <td>2020</td>
+          <td>Trivandrum</td>
+            <td class="details-control"></td>
+        </tr> 
+        <tr>
+          <td><img class="avatar" src="assets/avatar.png"></td>
+          <td>Dinil</td>
+          <td>MernStack</td>
+          <td>BTech CS</td>
+          <td>2015</td>
+          <td>Trivandrum</td>
+            <td class="details-control"></td>
+        </tr> 
+        <tr>
+          <td><img class="avatar" src="assets/avatar.png"></td>
+          <td>Sujeesh</td>
+          <td>MernStack</td>
+          <td>BTech CS</td>
+          <td>2020</td>
+          <td>Trivandrum</td>
+            <td class="details-control"></td>
+        </tr> 
+      </tbody>
+  </table>
+  <button (click)="generateCSV()" class="btn btn-block btn-primary">Generate Report</button>
+  </div>

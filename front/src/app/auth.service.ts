@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,6 +11,9 @@ export class AuthService {
   loginUser(user: any) {
     return this._http.post<any>('http://localhost:3000/login', user);
   }
+  resetPassword(user: any) {
+    return this._http.post<any>('http://localhost:3000/reset', user);
+  }
   loggedIn() {
     return !!localStorage.getItem('token');
   }
@@ -22,4 +24,3 @@ export class AuthService {
     return localStorage.getItem('role');
   }
 }
-

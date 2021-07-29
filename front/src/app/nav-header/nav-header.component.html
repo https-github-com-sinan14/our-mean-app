@@ -13,15 +13,24 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-      </div>
+      <div class="navbar-nav"></div>
       <div class="navbar-nav ml-auto">
+        <a class="nav-link" routerLink="/courses">courses
+
+        </a>
+        <a class="nav-link" routerLink="/students">students
+
+        </a>
         <a class="nav-link" routerLink="/login" *ngIf="!_auth.loggedIn()"
           >Login</a
         >
         <a class="nav-link" routerLink="/register" *ngIf="!_auth.loggedIn()"
           >register</a
         >
+        <a class="nav-link" routerLink="/studentstable">students
+
+        </a>
+
         <a
           class="nav-link"
           style="cursor: pointer"

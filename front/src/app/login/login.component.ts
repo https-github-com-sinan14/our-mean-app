@@ -10,6 +10,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  error: string = null;
   passwordReg =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/;
   emailReg = /^[a-z0-9.%+]+@[a-z09.-]+.[a-z]{2,4}/;
@@ -26,17 +27,40 @@ export class LoginComponent implements OnInit {
   });
 
   loginUser() {
-    this._auth.loginUser(this.loginForm.value).subscribe((response) => {
-      if (response.status) {
-        localStorage.setItem('token', response.token);
-        console.log(response.token);
-        localStorage.setItem('role', response.role);
-        this._router.navigate(['/']);
-      } else {
-        Swal.fire('Warning!!', 'User not found!', 'error').then((refresh) => {
-          window.location.reload();
+    if (!this.loginForm) {
+      return;
+    }
+    console.log(this.loginForm);
+    this._auth.loginUser(this.loginForm.value).subscribe(
+      (response) => {
+        if (response.status) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.role);
+          // console.log(response.id)
+          this._router.navigate([`students/${response.id}`]);
+        } else {
+          Swal.fire().then((refresh) => {
+            this.loginForm.reset({
+              title: 'warning!!',
+              showConfirmButton: false,
+              timer: 1000,
+              text: 'user not found',
+              icon: 'error',
+            });
+          });
+        }
+      },
+      (errorMessage) => {
+        Swal.fire({
+          title: 'warning!!',
+          showConfirmButton: false,
+          timer: 1000,
+          text: 'some internal error',
+          icon: 'error',
+        }).then(() => {
+          this.loginForm.reset();
         });
       }
-    });
+    );
   }
 }

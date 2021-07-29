@@ -47,6 +47,14 @@
                 formControlName="Email"
                 placeholder="Enter a valid email address"
               />
+              <span
+                  *ngIf="
+                    !loginForm.get('Email').valid &&
+                    loginForm.get('Email').touched
+                  "
+                  class="help-block"
+                  >Please enter valid email!</span
+                >
             </div>
             <div class="row px-3">
               <label class="mb-1">
@@ -58,6 +66,15 @@
                 formControlName="Password"
                 placeholder="Enter password"
               />
+              <span
+                  *ngIf="
+                    !loginForm.get('Password').valid &&
+                    loginForm.get('Password').touched
+                  "
+                  class="help-block"
+                  >Please enter valid password!</span
+                >
+
             </div>
             <div class="row px-3 mb-4">
               <div class="custom-control custom-checkbox custom-control-inline">
@@ -71,14 +88,14 @@
                   >Remember me</label
                 >
               </div>
-              <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
+              <a [routerLink]="['/resetPassword']" class="ml-auto mb-0 text-sm">Forgot Password?</a>
             </div>
             <div class="row mb-3 px-3">
               <button
                 type="submit"
                 class="btn btn-success float-right text-center"
                 [disabled]="loginForm.invalid"
-                type="submit"
+                
               >
                 Login
               </button>
@@ -86,7 +103,7 @@
           </form>
           <div class="row mb-4 px-3">
             <small class="font-weight-bold"
-              >Don't have an account? <a class="text-danger">Register</a></small
+              >Don't have an account? <a [routerLink]="['/register']" class="text-danger">Register</a></small
             >
           </div>
         </div>
