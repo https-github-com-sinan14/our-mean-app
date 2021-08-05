@@ -1,111 +1,225 @@
-<h2>Payment For FSD Program</h2>
-<div class="row body1">
-  <div class="col-75">
-    <div class="container">
-      <form>
-        <div class="row">
-          <div class="col-50">
-            <h3>Billing Address</h3>
-            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-            <input
-              type="text"
-              id="fname"
-              name="fullname"
-              placeholder="sinan mohammed"
-            />
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="sinan@example.com"
-            />
-            <label for="adr"
-              ><i class="fa fa-address-card-o"></i> Address</label
-            >
-            <input
-              type="text"
-              id="adr"
-              name="address"
-              placeholder="Jawahar Street 323 third floor"
-            />
-            <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="MLP" />
+<section id="section">
+  <div class="row">
+    <div class="col-75">
+      <div class="container">
+        <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-50">
+              <h3>Billing Address</h3>
+              <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+              <input
+                type="text"
+                id="fname"
+                [value]="Student.Name"
+                name="fullname"
+                placeholder="sinan mohammed"
+              />
+              <label for="email"><i class="fa fa-envelope"></i> Email</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                [value]="Student.Email"
+                placeholder="sinan@example.com"
+              />
+              <label for="adr"
+                ><i class="fa fa-address-card-o"></i> Address</label
+              >
+              <input
+                type="text"
+                id="adr"
+                name="address"
+                placeholder="Jawahar Street 323 third floor"
+              />
+              <label for="city"><i class="fa fa-institution"></i> City</label>
+              <input
+                type="text"
+                [value]="Student.District"
+                id="city"
+                name="city"
+                placeholder="MLP"
+              />
 
-            <div class="row">
-              <div class="col-50">
-                <label for="state">State</label>
-                <input
-                  type="text"
-                  id="state"
-                  name="state"
-                  placeholder="Kerala"
-                />
+              <div class="row">
+                <div class="col-50">
+                  <label for="state">State</label>
+                  <input
+                    type="text"
+                    id="state"
+                    name="state"
+                    [value]="Student.State"
+                    placeholder="Kerala"
+                  />
+                </div>
+                <div class="col-50">
+                  <label for="zip">Zip</label>
+                  <input
+                    type="text"
+                    [value]="Student.Post"
+                    id="zip"
+                    name="zip"
+                    placeholder="10001"
+                  />
+                </div>
               </div>
-              <div class="col-50">
-                <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip" placeholder="10001" />
+            </div>
+
+            <div class="col-50">
+              
+              <h3>Payment</h3>
+              <label for="fname">Accepted Cards</label>
+              <div class="icon-container">
+                <i class="fa fa-cc-visa" style="color: navy"></i>
+                <i class="fa fa-cc-amex" style="color: blue"></i>
+                <i class="fa fa-cc-mastercard" style="color: red"></i>
+                <i class="fa fa-cc-discover" style="color: orange"></i>
+              </div>
+              <label for="cname">Name on Card</label>
+              <input
+                type="text"
+                id="cname"
+                name="cardname"
+                formControlName='name'
+                
+                placeholder="name"
+              />
+              <label for="ccnum">Credit card number</label>
+              <input
+                type="text"
+                formControlName="cardnumber"
+                id="ccnum"
+                name="cardnumber"
+                placeholder="1111-2222-3333-4444"
+              />
+              <label for="expmonth">Exp Month</label>
+              <input
+                type="number"
+                id="expmonth"
+                min="1"
+                max="12"
+                name="expmonth"
+                formControlName="month"
+                placeholder="September"
+              />
+              <div class="row">
+                <div class="col-50">
+                  <label for="expyear">Exp Year</label>
+                  <input
+                    min="2022"
+                    type="number"
+                    id="expyear"
+                    min="2021"
+                    name="expyear"
+                    formControlName="year"
+                    placeholder="2025"
+                  />
+                </div>
+                <div class="col-50">
+                  <label for="cvv">CVV</label>
+                  <input
+                    type="number"
+                    formControlName="cvv"
+                    min="100"
+                    max="999"
+                    id="cvv"
+                    name="cvv"
+                    placeholder="352"
+                  />
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="col-50">
-            <h3>Payment</h3>
-            <label for="fname">Accepted Cards</label>
-            <div class="icon-container">
-              <i class="fa fa-cc-visa" style="color: navy"></i>
-              <i class="fa fa-cc-amex" style="color: blue"></i>
-              <i class="fa fa-cc-mastercard" style="color: red"></i>
-              <i class="fa fa-cc-discover" style="color: orange"></i>
-            </div>
-            <label for="cname">Name on Card</label>
-            <input
-              type="text"
-              id="cname"
-              name="cardname"
-              placeholder="sinan mohammed"
-            />
-            <label for="ccnum">Credit card number</label>
-            <input
-              type="text"
-              id="ccnum"
-              name="cardnumber"
-              placeholder="1111-2222-3333-4444"
-            />
-            <label for="expmonth">Exp Month</label>
-            <input
-              type="text"
-              id="expmonth"
-              name="expmonth"
-              placeholder="September"
-            />
-            <div class="row">
-              <div class="col-50">
-                <label for="expyear">Exp Year</label>
-                <input
-                  min="2022"
-                  type="number"
-                  id="expyear"
-                  name="expyear"
-                  placeholder="2025"
-                />
-              </div>
-              <div class="col-50">
-                <label for="cvv">CVV</label>
-                <input
-                  type="number"
-                  min="100"
-                  max="999"
-                  id="cvv"
-                  name="cvv"
-                  placeholder="352"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <input type="submit" (click)="updateProfile()" value="Continue to Pay " class="btn" />
-      </form>
+          <button
+            type="submit"
+            *ngIf="
+              (Student.EmploymentStatus == 'Unemployed' &&
+                Student.Sex == 'Male') ||
+              Student.EmploymentStatus == 'Employed'
+            "
+            (click)="updateProfile()"
+            class="btn"
+          >
+            procced to pay {{ fee }}
+          </button>
+
+          <button
+            *ngIf="Student.EmploymentStatus == 'Student'"
+            type="submit"
+            (click)="updateProfile()"
+            class="btn"
+          >
+            procced to pay {{ studentFee }}
+          </button>
+
+          <button
+            *ngIf="
+              Student.EmploymentStatus == 'Unemployed' &&
+              Student.Sex == 'Female'
+            "
+            type="submit"
+            (click)="updateProfile()"
+            class="btn"
+          >
+            procced to pay {{ womenFee }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-25">
+      <div class="container">
+        <h4>
+          Course
+          <span class="price" style="color: black">
+            <i class="fa fa-shopping-cart"></i>
+            <b></b>
+          </span>
+        </h4>
+
+        <p>
+          <a href="#">{{ Student.Course }} </a>
+          <span class="price">{{ elevatedFee }}</span>
+        </p>
+        <p>
+          <a>After 10% off</a> <span class="price">{{ fee }}</span>
+        </p>
+        <!-- student  -->
+        <p *ngIf="Student.EmploymentStatus == 'Student'">
+          <a>student Privilage</a> <span class="price">{{ studentFee }}</span>
+        </p>
+        <!-- women -->
+        <p
+          *ngIf="
+            Student.EmploymentStatus == 'Unemployed' && Student.Sex == 'Female'
+          "
+        >
+          <a>Women privilage</a> <span class="price">{{ womenFee }}</span>
+        </p>
+        <hr />
+        <!-- employed and unemployed male -->
+
+        <p *ngIf="Student.EmploymentStatus == 'Employed' || (Student.Sex == 'Male' && Student.EmploymentStatus == 'Unemployed')">
+          Total
+          <span class="price" style="color: black"
+            ><b>{{ fee }}</b></span
+          >
+        </p>
+        <!-- students special -->
+        <p *ngIf="Student.EmploymentStatus == 'Student'">
+          Total
+          <span class="price" style="color: black"
+            ><b>{{ studentFee }}</b></span
+          >
+        </p>
+        <!-- women special -->
+        <p *ngIf="Student.EmploymentStatus == 'Unemployed' && Student.Sex == 'Female'">
+          Total
+          <span class="price" style="color: black"
+            ><b>{{ womenFee }}</b></span
+          >
+        </p>
+      </div>
     </div>
   </div>
-</div>
+</section>

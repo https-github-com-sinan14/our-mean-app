@@ -1,23 +1,17 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
-const path = require("path");
-const wrapAsync = require("./util/wrapAsync");
-const ExpressError = require("./util/ExpressError");
-const port = process.env.PORT || 3000;
 const session = require("express-session");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const loginRoutes = require("./routes/loginRoutes");
-const studentRoutes = require("./routes/studentRoutes");
+const path = require("path");
+const wrapAsync = require("./util/wrapAsync");
+const ExpressError = require("./util/ExpressError");
 
 //*************************** connecting our database ****************************
-const dbUrl = "mongodb://localhost:27017/project-mean";
+// const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/project-mean";
+const dbUrl =
+  "mongodb+srv://userone:sinu1@ictakfiles.g1s0x.mongodb.net/project-mean?retryWrites=true&w=majority";
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -46,18 +40,22 @@ const sessionConfig = {
   },
 };
 app.use(session(sessionConfig));
-app.use("/", loginRoutes);
+
+const studentRoutes = require("./routes/studentRoutes");
+const employeeRoutes = require("./routes/employeeRoutes");
 app.use("/students", studentRoutes);
+app.use("/employee", employeeRoutes);
 
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
-  // res.status(statusCode).render('error', { err })
-  console.log({status:statusCode})
-  console.log({errorMessage:err.message})
+
+  console.log({ status: statusCode });
+  console.log({ errorMessage: err.message });
   res.send({ status: statusCode, error: err });
 });
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log("Serving on port number" + port);
 });

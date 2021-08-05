@@ -25,12 +25,14 @@
             "assets": ["src/favicon.ico", "src/assets"],
 
             "styles": [
+              "node_modules/aos/dist/aos.css",
               "src/styles.css",
               "node_modules/datatables.net-dt/css/jquery.dataTables.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/aos/dist/aos.js"
             ]
           },
           "configurations": {

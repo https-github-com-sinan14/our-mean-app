@@ -6,6 +6,7 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     //
+    
     "strict": false,
     "strictPropertyInitialization": false,
 //
@@ -20,6 +21,7 @@
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
+    
     "lib": [
       "es2018",
       "dom"

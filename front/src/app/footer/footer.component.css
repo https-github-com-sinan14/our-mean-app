@@ -1,0 +1,32 @@
+
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer {
+    background: linear-gradient(45deg, #1de099, #1dc8cd);;
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+    padding: 30px 0;
+    color: #333;
+    font-size: 14px;
+    height: 80px;;
+  }
+  
+  #footer .credits {
+    font-size: 13px;
+    color: #888;
+  }
+  
+  #footer .footer-links a {
+    color: #666;
+    padding-left: 15px;
+  }
+  
+  #footer .footer-links a:first-child {
+    padding-left: 0;
+  }
+  
+  #footer .footer-links a:hover {
+    color: white;
+  }
+  

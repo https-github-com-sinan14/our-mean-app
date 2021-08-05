@@ -15,6 +15,7 @@ import {
   styleUrls: ['./reset-password.component.css'],
 })
 export class ResetPasswordComponent implements OnInit {
+  isLoading: boolean = false;
   emailReg = /^[a-z0-9.%+]+@[a-z09.-]+.[a-z]{2,4}/;
   passwordReg =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/;
@@ -28,6 +29,7 @@ export class ResetPasswordComponent implements OnInit {
         Validators.required,
         Validators.pattern(this.emailReg),
       ]),
+      DOB: new FormControl(null, [Validators.required]),
       Password: new FormControl(null, [
         Validators.required,
         Validators.pattern(this.passwordReg),
@@ -48,7 +50,6 @@ export class ResetPasswordComponent implements OnInit {
   passValidator(control: AbstractControl) {
     if (control && (control.value !== null || control.value !== undefined)) {
       const cnfpassValue = control.value;
-
       const passControl = control.root.get('Password');
       if (passControl) {
         const passValue = passControl.value;
@@ -63,9 +64,14 @@ export class ResetPasswordComponent implements OnInit {
     return null;
   }
   onSubmit() {
-    console.log(this.resetForm);
-    this._auth.resetPassword(this.resetForm.value).subscribe(
+    if (!this.resetForm.valid) {
+      return;
+    }
+    this.isLoading = true;
+
+    this._auth.resetStudentPassword(this.resetForm.value).subscribe(
       (response) => {
+        this.isLoading = false;
         if (response.status) {
           Swal.fire({
             title: 'Eureka! ',
@@ -90,6 +96,7 @@ export class ResetPasswordComponent implements OnInit {
         }
       },
       (catchError) => {
+        this.isLoading = false;
         Swal.fire({
           title: 'warning!!',
           showConfirmButton: false,

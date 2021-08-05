@@ -7,8 +7,40 @@
       <button type="submit"><a routerLink="/login">login</a></button>
     </div>
 
-    <div class="col-xs-10 col-sm-10 col-md-9 register-right">
+    <div class="col-xs-12 col-sm-10 col-md-9 register-right">
+      <ul
+        style="width: 200px"
+        class="nav nav-tabs nav-justified"
+        id="myTab"
+        role="tablist"
+      >
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="home-tab"
+            data-toggle="tab"
+            routerLink="/register"
+            role="tab"
+            aria-controls="home"
+            aria-selected="true"
+            >Student</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="profile-tab"
+            data-toggle="tab"
+            routerLink="/employeeregister"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+            >Employee</a
+          >
+        </li>
+      </ul>
       <div class="tab-content" id="myTabContent">
+        <!-- form of studentts -->
         <div
           class="tab-pane fade show active"
           id="home"
@@ -16,11 +48,18 @@
           aria-labelledby="home-tab"
         >
           <h3 class="register-heading">Enrollment Form</h3>
+          <!-- loading spinner -->
+          <div *ngIf="isLoading" style="text-align: center;">
+            <app-loading-spinner></app-loading-spinner>
+          </div>
+ 
           <!-- form open -->
           <form [formGroup]="registerForm" (ngSubmit)="registerStudent()">
             <div class="row register-form">
               <!-- open -->
+              <!-- left Gride -->
               <div class="col-md-6">
+                <!-- Name -->
                 <div class="form-group">
                   <input
                     type="text"
@@ -29,15 +68,15 @@
                     formControlName="Name"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('Name').valid &&
-                    registerForm.get('Name').touched
-                  "
-                  class="help-block"
-                  >Please enter a valid name!</span
-                >
+                    *ngIf="
+                      !registerForm.get('Name').valid &&
+                      registerForm.get('Name').touched
+                    "
+                    class="help-block"
+                    >Name cannot be blank!</span
+                  >
                 </div>
-
+                <!-- Phone -->
                 <div class="form-group">
                   <input
                     type="text"
@@ -46,14 +85,15 @@
                     formControlName="Phone"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('Phone').valid &&
-                    registerForm.get('Phone').touched
-                  "
-                  class="help-block"
-                  >Please enter a valid phone!</span
-                >
+                    *ngIf="
+                      !registerForm.get('Phone').valid &&
+                      registerForm.get('Phone').touched
+                    "
+                    class="help-block"
+                    >enter a valid phone number!</span
+                  >
                 </div>
+                <!-- HighestQualification -->
                 <div class="form-group">
                   <select
                     class="form-control"
@@ -74,44 +114,39 @@
                     </option>
                   </select>
                   <span
-                  *ngIf="
-                    !registerForm.get('HighestQualification').valid &&
-                    registerForm.get('HighestQualification').touched
-                  "
-                  class="help-block"
-                  >Please Choose a valid Qualification!</span
-                >
+                    *ngIf="
+                      !registerForm.get('HighestQualification').valid &&
+                      registerForm.get('HighestQualification').touched
+                    "
+                    class="help-block"
+                    >Qualification cannot be blank!</span
+                  >
                 </div>
-
+                <!-- Interested course -->
                 <div class="form-group">
                   <select class="form-control" formControlName="Course">
                     <option class="hidden" value="" disabled selected>
                       Interested Course *
                     </option>
-
-                    <option value="MeanStack">Mean Stack</option>
-
-                    <option value="Cybersecurity">Cyber Security</option>
-
-                    <option value="Data Science">Data Science</option>
-
-                    <option value="MachineLearining">Machine Learining</option>
+                    <option value="MeanStack">MeanStack</option>
+                    <option value="CyberSecurity">CyberSecurity</option>
+                    <option value="DataScience">DataScience</option>
+                    <option value="Robotics">Robotics</option>
+                    <option value="DigitalMarketing">DigitalMarketing</option>
                   </select>
                   <span
-                  *ngIf="
-                    !registerForm.get('Course').valid &&
-                    registerForm.get('Course').touched
-                  "
-                  class="help-block"
-                  >Please choosea valid 
-                  course!</span
-                >
+                    *ngIf="
+                      !registerForm.get('Course').valid &&
+                      registerForm.get('Course').touched
+                    "
+                    class="help-block"
+                    >course cannot be empty!</span
+                  >
                 </div>
-
+                <!-- date of birth -->
                 <div class="form-group">
                   <input
                     class="form-control"
-                    type="text"
                     placeholder="Date of Birth"
                     min="1990-01-01"
                     max="2005-01-01"
@@ -120,72 +155,39 @@
                     onblur="(this.type='text')"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('DOB').valid &&
-                    registerForm.get('DOB').touched
-                  "
-                  class="help-block"
-                  >Please enter a valid DOB!</span
-                >
-                  
+                    *ngIf="
+                      !registerForm.get('DOB').valid &&
+                      registerForm.get('DOB').touched
+                    "
+                    class="help-block"
+                    >DOB cannot be empty!</span
+                  >
                 </div>
-
+                <!-- state -->
                 <div class="form-group">
-                  <select class="form-control" formControlName="State">
+                  <select
+                    class="form-control"
+                    change="selectDistrict(this.value)"
+                    formControlName="State"
+                  >
                     <option class="hidden" value="" disabled selected>
                       state *
                     </option>
-                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                    <option value="Andaman and Nicobar Islands">
-                      Andaman and Nicobar Islands
+                    <option *ngFor="let state of states" [value]="state">
+                      {{ state }}
                     </option>
-                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Chandigarh">Chandigarh</option>
-                    <option value="Chhattisgarh">Chhattisgarh</option>
-                    <option value="Dadar and Nagar Haveli">
-                      Dadar and Nagar Haveli
-                    </option>
-                    <option value="Daman and Diu">Daman and Diu</option>
-                    <option value="Delhi">Delhi</option>
-                    <option value="Lakshadweep">Lakshadweep</option>
-                    <option value="Puducherry">Puducherry</option>
-                    <option value="Goa">Goa</option>
-                    <option value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Manipur">Manipur</option>
-                    <option value="Meghalaya">Meghalaya</option>
-                    <option value="Mizoram">Mizoram</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Sikkim">Sikkim</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Telangana">Telangana</option>
-                    <option value="Tripura">Tripura</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                    <option value="West Bengal">West Bengal</option>
                   </select>
-                  <span
-                  *ngIf="
-                    !registerForm.get('State').valid &&
-                    registerForm.get('State').touched
-                  "
-                  class="help-block"
-                  >Please choose a valid state!</span
-                >
-                </div>
 
+                  <span
+                    *ngIf="
+                      !registerForm.get('State').valid &&
+                      registerForm.get('State').touched
+                    "
+                    class="help-block"
+                    >state cannot be empty!</span
+                  >
+                </div>
+                <!-- post -->
                 <div class="form-group">
                   <input
                     class="form-control"
@@ -194,28 +196,40 @@
                     formControlName="Post"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('Post').valid &&
-                    registerForm.get('Post').touched
-                  "
-                  class="help-block"
-                  >Please enter a valid Post Name!</span
-                >
+                    *ngIf="
+                      !registerForm.get('Post').valid &&
+                      registerForm.get('Post').touched
+                    "
+                    class="help-block"
+                    >Post Name cannot be empty!</span
+                  >
                 </div>
-                <!-- <div class="radio" *ngFor="let gender of genders">
-                  <label>
-                    <input
-                      class=""
-                      type="radio"
-                      formControlName="gender"
-                      [value]="gender"
-                    />{{ gender }}
-                  </label>
-                </div> -->
+                <!-- sex -->
+                <div class="form-group">
+                  <div class="maxl">
+                    <label class="radio inline">
+                      <input
+                        type="radio"
+                        formControlName="Sex"
+                        name="gender"
+                        value="Male"
+                        checked
+                      />
+                      <span> Male </span>
+                    </label>
+                    <label class="radio inline">
+                      <input
+                        type="radio"
+                        name="gender"
+                        formControlName="Sex"
+                        value="Female"
+                      />
+                      <span>Female </span>
+                    </label>
+                  </div>
+                </div>
               </div>
-              <!-- closed -->
-              <!-- open next  -->
-
+              <!-- Email field -->
               <div class="col-md-6">
                 <div class="form-group">
                   <input
@@ -225,31 +239,40 @@
                     formControlName="Email"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('Email').valid &&
-                    registerForm.get('Email').touched
-                  "
-                  class="help-block"
-                  >Please enter a valid email!</span
-                >
+                    *ngIf="
+                      !registerForm.get('Email').valid &&
+                      registerForm.get('Email').touched
+                    "
+                    class="help-block"
+                    >enter a valid email!</span
+                  >
                 </div>
-                <div class="form-group">
-                  <select class="form-control" formControlName="Sex">
-                    <option class="hidden" value="" disabled selected>
-                      Gender *
-                    </option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                  </select>
+                <!-- image -->
+
+                <div class="form-group form-file">
+                  <input
+                    type="file"
+                    class="form-file-input form-control"
+                    (change)="selectImage($event)"
+                    accept="image/png, image/gif, image/jpeg"
+                  />
+                  <!-- <label class="form-file-label" for="image">
+                    <span class="form-file-text custom-file-label"
+                      >Upload photo...</span
+                    >
+                  </label> -->
+
                   <span
-                  *ngIf="
-                    !registerForm.get('Sex').valid &&
-                    registerForm.get('Sex').touched
-                  "
-                  class="help-block"
-                  >Please choose correct gender!</span
-                >
+                    *ngIf="
+                      !registerForm.get('img').valid &&
+                      registerForm.get('img').touched
+                    "
+                    class="help-block"
+                    >image cannot be empty!</span
+                  >
                 </div>
+
+                <!-- PassOfYear -->
                 <div class="form-group">
                   <input
                     class="form-control"
@@ -261,15 +284,15 @@
                     formControlName="PassOfYear"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('PassOfYear').valid &&
-                    registerForm.get('PassOfYear').touched
-                  "
-                  class="help-block"
-                  >Please choose a valid year!</span
-                >
+                    *ngIf="
+                      !registerForm.get('PassOfYear').valid &&
+                      registerForm.get('PassOfYear').touched
+                    "
+                    class="help-block"
+                    >choose a valid year!</span
+                  >
                 </div>
-
+                <!-- skillset -->
                 <div class="form-group">
                   <input
                     type="text"
@@ -278,15 +301,15 @@
                     placeholder="skillSets, you can include soft skills too"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('SkillSet').valid &&
-                    registerForm.get('SkillSet').touched
-                  "
-                  class="help-block"
-                  >Please enter your skills</span
-                >
-
+                    *ngIf="
+                      !registerForm.get('SkillSet').valid &&
+                      registerForm.get('SkillSet').touched
+                    "
+                    class="help-block"
+                    >skills cannot be empty</span
+                  >
                 </div>
+                <!-- Employment status -->
                 <div class="form-group">
                   <select
                     class="form-control"
@@ -300,16 +323,21 @@
                     <option value="Employed">Employed</option>
                   </select>
                   <span
-                  *ngIf="
-                    !registerForm.get('EmploymentStatus').valid &&
-                    registerForm.get('EmploymentStatus').touched
-                  "
-                  class="help-block"
-                  >Please enter a valid status!</span
-                >
-                  
+                    *ngIf="
+                      !registerForm.get('EmploymentStatus').valid &&
+                      registerForm.get('EmploymentStatus').touched
+                    "
+                    class="help-block"
+                    >status cannot be empty!</span
+                  >
                 </div>
+                <!-- District -->
                 <div class="form-group">
+                  <!-- <select
+                    formControlName="District"
+                    class="form-control"
+                    id="secondlist"
+                  ></select> -->
                   <input
                     class="form-control"
                     type="text"
@@ -317,14 +345,15 @@
                     formControlName="District"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('District').valid &&
-                    registerForm.get('District').touched
-                  "
-                  class="help-block"
-                  >Please enter a valid district!</span
-                >
+                    *ngIf="
+                      !registerForm.get('District').valid &&
+                      registerForm.get('District').touched
+                    "
+                    class="help-block"
+                    >Invalid District Name!</span
+                  >
                 </div>
+                <!-- PinCode -->
                 <div class="form-group">
                   <input
                     type="number"
@@ -333,15 +362,15 @@
                     formControlName="PinCode"
                   />
                   <span
-                  *ngIf="
-                    !registerForm.get('PinCode').valid &&
-                    registerForm.get('PinCode').touched
-                  "
-                  class="help-block"
-                  >Please enter a valid pin code!</span
-                >
+                    *ngIf="
+                      !registerForm.get('PinCode').valid &&
+                      registerForm.get('PinCode').touched
+                    "
+                    class="help-block"
+                    >Enter valid pin code!</span
+                  >
                 </div>
-
+                <!-- submit button -->
                 <input
                   class="text-center ml-10"
                   [disabled]="registerForm.invalid"
@@ -350,12 +379,13 @@
                   value="Register"
                 />
               </div>
-              <span class="text-danger" *ngIf="!registerForm.valid && registerForm.touched" class="help-block"
-              >Please enter valid data!</span
-            >
+              <span
+                *ngIf="!registerForm.valid && registerForm.touched"
+                class="help-block"
+                >enter valid data!</span
+              >
               <!-- closed -->
             </div>
-           
             <!-- form closed -->
           </form>
         </div>

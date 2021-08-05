@@ -18,6 +18,7 @@
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
+    "aos": "^2.3.4",
     "datatables.net": "^1.10.25",
     "datatables.net-dt": "^1.1.0",
     "export-to-csv": "^0.2.1",

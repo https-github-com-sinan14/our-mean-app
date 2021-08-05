@@ -1,4 +1,7 @@
-section {
+#section {
+  margin: 0;
+  margin-top: 3.74rem;
+
   background: #67b26f; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
@@ -11,7 +14,7 @@ section {
     #67b26f
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   padding: 0;
-  margin: 0;
+  
   font-family: "Lato", sans-serif;
   color: #000;
 }
@@ -49,16 +52,16 @@ input {
   width: 100%;
   border-collapse: collapse;
 }
-.inputBorderAtReadOnly:focus {
+.noBorder:focus {
   outline: none;
 }
-.inputBorderAtReadOnly {
+.noBorder {
   border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom-style: hidden;
 }
-.inputFocus {
+.Border {
   border-style: hidden;
   outline: yellow;
   background-color: aquamarine;

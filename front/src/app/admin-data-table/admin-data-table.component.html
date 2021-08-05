@@ -1,110 +1,52 @@
-<div class="card">
-  <div class="card-header">
-    <h2>Admin Page</h2>
-  </div>
-
-  <div class="card-body">
-    <div class="table-responsive">
-      <h4>Students List</h4>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Sl.no</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Sex</th>
-            <th>Qualification</th>
-            <th>Applied Course</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Dinil</td>
-            <td>39</td>
-            <td>Male</td>
-            <td>MCA</td>
-            <td>FSD</td>
-            <td>Active</td>
-            <td>
-              <button
-                class="btn btn-warning"
-                style="cursor: pointer"
-                style="margin-left: 20px"
-              >
-                View
-              </button>
-              <button class="btn btn-danger" style="cursor: pointer">
-                Edit
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Dinil</td>
-            <td>39</td>
-            <td>Male</td>
-            <td>MCA</td>
-            <td>FSD</td>
-            <td>Active</td>
-            <td>
-              <button
-                class="btn btn-warning"
-                style="cursor: pointer"
-                style="margin-left: 20px"
-              >
-                View
-              </button>
-              <button class="btn btn-danger" style="cursor: pointer">
-                Edit
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Dinil</td>
-            <td>39</td>
-            <td>Male</td>
-            <td>MCA</td>
-            <td>FSD</td>
-            <td>Active</td>
-            <td>
-              <button
-                class="btn btn-warning"
-                style="cursor: pointer"
-                style="margin-left: 20px"
-              >
-                View
-              </button>
-              <button class="btn btn-danger" style="cursor: pointer">
-                Edit
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Dinil</td>
-            <td>39</td>
-            <td>Male</td>
-            <td>MCA</td>
-            <td>FSD</td>
-            <td>Active</td>
-            <td>
-              <button
-                class="btn btn-warning"
-                style="cursor: pointer"
-                style="margin-left: 20px"
-              >
-                View
-              </button>
-              <button class="btn btn-danger" style="cursor: pointer">
-                Edit
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="container-fluid">
+  <h4>Waiting For Approval</h4>
+<table #dataTable id="display" class="table-responsive table-hover" width="100%">
+  <thead class="bg-primary">
+      <tr>
+          <th>Image</th>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Gender</th>
+          <th>DOB</th>
+          <th>Course</th>
+          <th>Highest Qualification</th>
+          <th>Skill Set</th>
+          <th>Pass Out Year</th>
+          <th>Employment Status</th>
+          <th>State</th>
+          <th>District</th>
+          <th>Post</th>
+          <th>PinCode</th>
+          <th>Status</th>
+          <th>Created Date</th>
+         <th>Exit Exam Mark</th>
+          <th></th>
+      </tr>
+      <tr>
+          <th>Image</th>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Gender</th>
+          <th>DOB</th>
+          <th>Course</th>
+          <th>Highest Qualification</th>
+          <th>Skill Set</th>
+          <th>Pass Out Year</th>
+          <th>Employment Status</th>
+          <th>State</th>
+          <th>District</th>
+          <th>Post</th>
+          <th>PinCode</th>
+          <th>Status</th>
+          <th>Created Date</th>
+         <th>Exit Exam Mark</th>
+          <th></th>
+      </tr>
+  </thead>
+</table>
+<button (click)="generateCSV()" class="btn btn-block btn-primary">Generate Report</button>
 </div>

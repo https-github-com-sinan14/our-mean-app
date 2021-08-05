@@ -1,6 +1,10 @@
+import Swal from 'sweetalert2';
+import { StudentServiceService } from './../student.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-all-students',
@@ -8,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-students.component.css'],
 })
 export class AllStudentsComponent implements OnInit {
+  isLoading: boolean = false;
   Students = [
     {
       _id: '',
@@ -26,24 +31,69 @@ export class AllStudentsComponent implements OnInit {
       Post: '',
       PinCode: '',
       Status: '',
+      PaymentDate: '',
+      ApprovalDate: '',
+      CreationDate: '',
     },
   ];
 
-  constructor(private _http: HttpClient, private router: Router) {}
-  getStudents() {
-    return this._http.get('http://localhost:3000/students');
-  }
+  constructor(
+    private _http: HttpClient,
+    private router: Router,
+    private _studentService: StudentServiceService
+  ) {}
+
   ngOnInit() {
-    this.getStudents().subscribe((data) => {
-      this.Students = JSON.parse(JSON.stringify(data));
-    });
+    this.isLoading = true;
+    this._studentService.fetchStudents().subscribe(
+      (data) => {
+        this.isLoading = false;
+        this.Students = JSON.parse(JSON.stringify(data));
+      },
+      (error) => {
+        this.isLoading = false;
+        Swal.fire({
+          title: 'error!!!🤦‍♂️🤦‍♂️🤦‍♂️',
+          text: 'server refused to connect',
+          timer: 800,
+          icon: 'error',
+          showConfirmButton: false,
+        });
+      }
+    );
   }
-  onSendEmail(id) {
-    console.log(id);
-    return this._http
-      .get(`http://localhost:3000/students/${id}/sendmail/`)
-      .subscribe((data) => {
-        // console.log(data);
-      });
+
+  onApprove(id, Course, Email) {
+    this.isLoading = true;
+    forkJoin([
+      this._http.post(`http://localhost:3000/students/${id}/approve`, {
+        Student: { Email: `${Email}`, Course: `${Course}` },
+      }),
+      this._http.put(`http://localhost:3000/students/${id}`, {
+        Student: { ApprovalDate: new Date(),Status:`payment remaining` },
+      }),
+    ])
+      .pipe(tap(console.log))
+      .subscribe(
+        (response: any) => {
+          this.isLoading = false;
+          this.ngOnInit()
+          Swal.fire({
+            title: 'Good',
+            text: '😀😀',
+            icon: 'success',
+            timer: 500,
+            showConfirmButton:false
+          });
+        },
+        (errorMessage) => {
+          this.isLoading = false;
+          Swal.fire({
+            title: '🤦‍♂️🤦‍♂️🤦‍♂️🤦‍♂️',
+            text: 'server refused to respond',
+            timer: 500,
+          });
+        }
+      );
   }
 }
