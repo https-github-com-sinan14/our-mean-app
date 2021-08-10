@@ -13,13 +13,13 @@ export class EmployeeFormComponent implements OnInit {
   isLoading: boolean = false;
   ngOnInit() {
     this.employeeForm.patchValue({
-      Password: 'sinan@66A',
+      Password: 'Ict@2021',
       SkillSet: 'Java,Js,C++',
     });
   }
 
   phoneReg = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-  emailReg = /^[a-z0-9.%+]+@[a-z09.-]+.[a-z]{2,4}/;
+  emailReg = /[a-z0-9._%+-]+@[a-z0-9.-]+\.([a-z]{3})+(\.([a-z]{2,}))?$/;
 
   constructor(private _auth: AuthService, private _fb: FormBuilder) {}
   employeeForm = this._fb.group({
@@ -37,7 +37,7 @@ export class EmployeeFormComponent implements OnInit {
       '',
       [Validators.required, Validators.min(100000), Validators.max(999999)],
     ],
-    Password: ['Employee@ict21'],
+    Password: ['Ict@2021'],
     PassOfYear: [
       '',
       [Validators.required, Validators.min(2000), Validators.max(2020)],
@@ -46,6 +46,7 @@ export class EmployeeFormComponent implements OnInit {
 
   registerEmployee() {
     if (this.employeeForm.invalid) {
+      this.isLoading = false;
       return;
     }
     this.isLoading = true;
@@ -55,11 +56,11 @@ export class EmployeeFormComponent implements OnInit {
         if (response) {
           Swal.fire({
             title: 'Good Job💖💖💖',
-            timer: 5000,
-            text: 'successfully registered your password \n your password is ',
+
+            text: 'successfully registered your password is \n  Ict@2021 ',
             icon: 'success',
           }).then(() => {
-            this.employeeForm.reset();
+            this.isLoading = false;
           });
         } else {
           Swal.fire({
@@ -68,7 +69,7 @@ export class EmployeeFormComponent implements OnInit {
             text: 'Something went wrong!',
             icon: 'error',
           }).then(() => {
-            this.employeeForm.reset();
+            window.location.reload();
           });
         }
       },

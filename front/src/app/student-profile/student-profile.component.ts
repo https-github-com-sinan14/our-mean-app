@@ -17,11 +17,14 @@ import { ɵangular_packages_platform_browser_platform_browser_m } from '@angular
   styleUrls: ['./student-profile.component.css'],
 })
 export class StudentProfileComponent implements OnInit {
+  backendUrl = 'http://localhost:3000';
+  // backendUrl ='/api';
+
   isLoading: boolean;
   phoneReg = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
   passwordReg =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/;
-  emailReg = /^[a-z0-9.%+]+@[a-z09.-]+.[a-z]{2,4}/;
+  emailReg = /[a-z0-9._%+-]+@[a-z0-9.-]+\.([a-z]{3})+(\.([a-z]{2,}))?$/;
 
   id: string;
   image: '';
@@ -68,7 +71,7 @@ export class StudentProfileComponent implements OnInit {
     imageUrl: '',
     ApprovalDate: '',
     PaymentDate: '',
-    ExitExamMark:''
+    ExitExamMark: '',
   };
 
   constructor(
@@ -146,7 +149,7 @@ export class StudentProfileComponent implements OnInit {
           ]),
           Course: new FormControl(this.Student.Course, [Validators.required]),
           DOB: new FormControl(this.Student.DOB, [Validators.required]),
-          ExitExamMark: new FormControl(this.Student.ExitExamMark,),
+          ExitExamMark: new FormControl(this.Student.ExitExamMark),
 
           Password: new FormControl(this.Student.Password, [
             Validators.required,
@@ -164,18 +167,22 @@ export class StudentProfileComponent implements OnInit {
   //*************************************************** */
   editProfile(item: any) {
     return this._http.put(
-      `http://localhost:3000/students/${this.Student._id}`,
+      `${this.backendUrl}/students/${this.Student._id}`,
       {
         Student: item,
       }
     );
   }
   updateStudent() {
-    if (
-      this.studentUpdateForm.invalid &&
-      this._auth.loggedIn &&
-      (this._auth.getUser() == 'admin' || this._auth.getUser() == 'user')
-    ) {
+    if (this.studentUpdateForm.invalid) {
+      Swal.fire({
+        title: 'inalid',
+        text: 'form is invalid',
+        icon: 'warning',
+        timer: 1000,
+        showConfirmButton: false,
+      });
+      this.isLoading = false;
       return;
     }
     this.isLoading = true;
@@ -233,7 +240,7 @@ export class StudentProfileComponent implements OnInit {
   uploadPic(pic: any) {
     console.log(pic);
     return this._http.put(
-      `http://localhost:3000/students/${this.Student._id}/profilepic`,
+      `${this.backendUrl}/students/${this.Student._id}/profilepic`,
       pic
     );
   }
@@ -253,6 +260,7 @@ export class StudentProfileComponent implements OnInit {
             timer: 1000,
             showConfirmButton: false,
           });
+          this.isLoading = false;
         }
       },
       (error) => {
@@ -290,10 +298,10 @@ export class StudentProfileComponent implements OnInit {
   onApprove(id, Course, Email) {
     this.isLoading = true;
     forkJoin([
-      this._http.post(`http://localhost:3000/students/${id}/approve`, {
+      this._http.post(`${this.backendUrl}/students/${id}/approve`, {
         Student: { Email: `${Email}`, Course: `${Course}` },
       }),
-      this._http.put(`http://localhost:3000/students/${id}`, {
+      this._http.put(`${this.backendUrl}/students/${id}`, {
         Student: { ApprovalDate: new Date(), Status: 'payment remaining' },
       }),
     ])
@@ -318,16 +326,24 @@ export class StudentProfileComponent implements OnInit {
   onReject(id, Course, Email) {
     this.isLoading = true;
     forkJoin([
-      this._http.post(`http://localhost:3000/students/${id}/reject/`, {
+      this._http.post(`${this.backendUrl}/students/${id}/reject/`, {
         Student: { Email: `${Email}`, Course: `${Course}` },
       }),
-      this._http.delete(`http://localhost:3000/students/${id}`),
+      this._http.delete(`${this.backendUrl}/students/${id}`),
     ])
       .pipe(tap(console.log))
       .subscribe(
         (res) => {
           this.isLoading = false;
-          Swal.fire({ title: 'rejected', text: 'done', icon: 'info',timer:500,showConfirmButton:false });
+          Swal.fire({
+            title: 'rejected',
+            text: 'done',
+            icon: 'info',
+            timer: 500,
+            showConfirmButton: false,
+          }).then(() => {
+            this._router.navigate(['/approve']);
+          });
         },
         (error) => {
           this.isLoading = false;

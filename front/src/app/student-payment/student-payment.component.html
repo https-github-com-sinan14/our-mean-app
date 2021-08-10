@@ -1,71 +1,104 @@
 <section id="section">
+  <div></div>
+  <div id="heading">welcome {{ Student.Name }} complete your registration</div>
   <div class="row">
     <div class="col-75">
       <div class="container">
-        <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="paymentForm" (ngSubmit)="updateProfile()">
           <div class="row">
             <div class="col-50">
               <h3>Billing Address</h3>
               <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+              <span class="help-block" *ngIf="isValid('billName')"
+                >Name cannot be blank</span
+              >
               <input
                 type="text"
                 id="fname"
-                [value]="Student.Name"
                 name="fullname"
-                placeholder="sinan mohammed"
+                formControlName="billName"
+                placeholder="name"
               />
+
               <label for="email"><i class="fa fa-envelope"></i> Email</label>
+
+              <span class="help-block" *ngIf="isValid('email')"
+                >Enter valid Email</span
+              >
+
               <input
                 type="text"
                 id="email"
                 name="email"
-                [value]="Student.Email"
-                placeholder="sinan@example.com"
+                formControlName="email"
+                placeholder="test@example.com"
               />
               <label for="adr"
                 ><i class="fa fa-address-card-o"></i> Address</label
+              >
+
+              <span class="help-block" *ngIf="isValid('address')"
+                >Address cannot be blank</span
               >
               <input
                 type="text"
                 id="adr"
                 name="address"
-                placeholder="Jawahar Street 323 third floor"
+                formControlName="address"
+                placeholder="current address"
               />
               <label for="city"><i class="fa fa-institution"></i> City</label>
+              <span class="help-block" *ngIf="isValid('district')"
+                >district cannot be blank</span
+              >
+
               <input
                 type="text"
-                [value]="Student.District"
+                formControlName="district"
                 id="city"
                 name="city"
-                placeholder="MLP"
+                placeholder="district"
               />
 
               <div class="row">
                 <div class="col-50">
+                  <span class="help-block" *ngIf="isValid('state')"
+                    >State cannot be blank</span
+                  >
+
                   <label for="state">State</label>
                   <input
                     type="text"
                     id="state"
+                    formControlName="state"
                     name="state"
-                    [value]="Student.State"
-                    placeholder="Kerala"
+                    placeholder="state"
                   />
                 </div>
                 <div class="col-50">
+                  <span class="help-block" *ngIf="isValid('zip')"
+                    >zip cannot be blank</span
+                  >
+
                   <label for="zip">Zip</label>
                   <input
-                    type="text"
-                    [value]="Student.Post"
+                    type="number"
+                    formControlName="zip"
                     id="zip"
                     name="zip"
-                    placeholder="10001"
+                    min="100000"
+                    max="999999"
                   />
                 </div>
               </div>
             </div>
+            <!-- loading spinner -->
+
+            <div *ngIf="isLoading" style="text-align: center">
+              <app-loading-spinner></app-loading-spinner>
+            </div>
 
             <div class="col-50">
-              
               <h3>Payment</h3>
               <label for="fname">Accepted Cards</label>
               <div class="icon-container">
@@ -75,15 +108,20 @@
                 <i class="fa fa-cc-discover" style="color: orange"></i>
               </div>
               <label for="cname">Name on Card</label>
+              <span class="help-block" *ngIf="isValid('name')"
+                >Name cannot be blank</span
+              >
               <input
                 type="text"
                 id="cname"
                 name="cardname"
-                formControlName='name'
-                
+                formControlName="name"
                 placeholder="name"
               />
               <label for="ccnum">Credit card number</label>
+              <span class="help-block" *ngIf="isValid('cardnumber')"
+                >Use Valid Credit Card</span
+              >
               <input
                 type="text"
                 formControlName="cardnumber"
@@ -92,6 +130,10 @@
                 placeholder="1111-2222-3333-4444"
               />
               <label for="expmonth">Exp Month</label>
+
+              <span class="help-block" *ngIf="isValid('month')"
+                >invalid month</span
+              >
               <input
                 type="number"
                 id="expmonth"
@@ -99,10 +141,13 @@
                 max="12"
                 name="expmonth"
                 formControlName="month"
-                placeholder="September"
+                placeholder="month in number"
               />
               <div class="row">
                 <div class="col-50">
+                  <span class="help-block" *ngIf="isValid('year')"
+                    >invalid year</span
+                  >
                   <label for="expyear">Exp Year</label>
                   <input
                     min="2022"
@@ -111,10 +156,13 @@
                     min="2021"
                     name="expyear"
                     formControlName="year"
-                    placeholder="2025"
+                    placeholder="year"
                   />
                 </div>
                 <div class="col-50">
+                  <span class="help-block" *ngIf="isValid('cvv')"
+                    >invalid CVV</span
+                  >
                   <label for="cvv">CVV</label>
                   <input
                     type="number"
@@ -123,7 +171,7 @@
                     max="999"
                     id="cvv"
                     name="cvv"
-                    placeholder="352"
+                    placeholder="cvv"
                   />
                 </div>
               </div>
@@ -131,24 +179,17 @@
           </div>
 
           <button
-            type="submit"
             *ngIf="
               (Student.EmploymentStatus == 'Unemployed' &&
                 Student.Sex == 'Male') ||
               Student.EmploymentStatus == 'Employed'
             "
-            (click)="updateProfile()"
             class="btn"
           >
             procced to pay {{ fee }}
           </button>
 
-          <button
-            *ngIf="Student.EmploymentStatus == 'Student'"
-            type="submit"
-            (click)="updateProfile()"
-            class="btn"
-          >
+          <button *ngIf="Student.EmploymentStatus == 'Student'" class="btn">
             procced to pay {{ studentFee }}
           </button>
 
@@ -157,8 +198,6 @@
               Student.EmploymentStatus == 'Unemployed' &&
               Student.Sex == 'Female'
             "
-            type="submit"
-            (click)="updateProfile()"
             class="btn"
           >
             procced to pay {{ womenFee }}
@@ -199,7 +238,12 @@
         <hr />
         <!-- employed and unemployed male -->
 
-        <p *ngIf="Student.EmploymentStatus == 'Employed' || (Student.Sex == 'Male' && Student.EmploymentStatus == 'Unemployed')">
+        <p
+          *ngIf="
+            Student.EmploymentStatus == 'Employed' ||
+            (Student.Sex == 'Male' && Student.EmploymentStatus == 'Unemployed')
+          "
+        >
           Total
           <span class="price" style="color: black"
             ><b>{{ fee }}</b></span
@@ -213,7 +257,11 @@
           >
         </p>
         <!-- women special -->
-        <p *ngIf="Student.EmploymentStatus == 'Unemployed' && Student.Sex == 'Female'">
+        <p
+          *ngIf="
+            Student.EmploymentStatus == 'Unemployed' && Student.Sex == 'Female'
+          "
+        >
           Total
           <span class="price" style="color: black"
             ><b>{{ womenFee }}</b></span

@@ -1,7 +1,7 @@
 import { EmpdashboardComponent } from './empdashboard/empdashboard.component';
 import { AllEmployeesComponent } from './All-empleyees/all-employees.component';
-// import { DatatableComponent } from './datatable/datatable.component';
 import { AuthGuard } from './auth.guard';
+import { LoginGuard } from './login.guard';
 import { AdminGuard } from './admin.guard';
 import { StudentsGuard } from './students.guard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -9,7 +9,6 @@ import { ResetEmpPasswordComponent } from './reset-emp-password/reset-emp-passwo
 import { ErrorsComponent } from './Errors/errors.component';
 import { StudentPaymentComponent } from './student-payment/student-payment.component';
 import { AllStudentsComponent } from './all-students/all-students.component';
-// import { AdminDataTableComponent } from './admin-data-table/admin-data-table.component';
 import { StudentProfileComponent } from './student-profile/student-profile.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
@@ -35,10 +34,15 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: StudentRegisterComponent },
   { path: 'employeeregister', component: EmployeeFormComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'employeelogin', component: LoginEmployeeComponent },
+  { path: 'login', canActivate: [LoginGuard], component: LoginComponent },
+  {
+    path: 'employeelogin',
+    canActivate: [LoginGuard],
+    component: LoginEmployeeComponent,
+  },
   { path: 'resetPassword', component: ResetPasswordComponent },
   { path: 'resetEmployeePassword', component: ResetEmpPasswordComponent },
+
   //need protection
 
   {

@@ -3,20 +3,21 @@ const wrapAsync = require("../util/wrapAsync");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const empData = require("../model/employee");
+const { verifyToken } = require("../middleware");
 
 router.post(
   "/register",
   wrapAsync(async function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     const employee = new empData(req.body);
-    console.log(employee);
+    // console.log(employee);
     employee
       .save()
       .then(function (data) {
         res.send(true);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
         res.send(false);
       });
   })
@@ -48,9 +49,9 @@ router.post(
       // console.log("admin login success");
       const payload = { subject: Email, admin: true };
       const token = jwt.sign(payload, "secretKey", { expiresIn: "1h" });
-      const Name ="Admin"
-      res.send({ status: 200, token,Name, role: req.session.role });
-    } else if(Email !="admin@ictak.com") {
+      const Name = "Admin";
+      res.send({ status: 200, token, Name, role: req.session.role });
+    } else if (Email != "admin@ictak.com") {
       const foundUser = await empData.findOne({ Email, Password });
 
       if (foundUser) {
@@ -60,13 +61,12 @@ router.post(
         req.session.role = "employee";
         const payload = { subject: Email, admin: false };
         const token = jwt.sign(payload, "secretKey", { expiresIn: "1h" });
-        res.send({ status: true, token,Name, id, role: req.session.role });
+        res.send({ status: true, token, Name, id, role: req.session.role });
       } else {
         res.send(false);
       }
-    }
-    else {
-      res.send(false)
+    } else {
+      res.send(false);
     }
   })
 );
@@ -75,6 +75,7 @@ router.post(
 
 router.get(
   "",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const Employees = await empData.find();
     console.log(Employees);
@@ -90,6 +91,7 @@ router.get(
 
 router.get(
   "/:id",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const Employee = await empData.findById(req.params.id);
     // console.log(Employee)
@@ -104,12 +106,13 @@ router.get(
 //************************        profile update        ******************************/
 router.put(
   "/:id",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
 
     console.log(req.body);
     const Employee = await empData.findByIdAndUpdate(id, {
-      ...req.body
+      ...req.body,
     });
     console.log(Employee);
     if (Employee) {
@@ -124,6 +127,7 @@ router.put(
 
 router.delete(
   "/:id",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const deletedStudent = await empData.findByIdAndDelete(req.params.id);
     if (deletedStudent) {

@@ -10,6 +10,7 @@ import { Injector } from '@angular/core';
 })
 
 export class NewdatatableComponent implements AfterViewInit {
+  isLoading:boolean=false;
 
   constructor(private studentService:StudentServiceService, private router:Router,private injector:Injector) { }
   @ViewChild('dataTable')
@@ -24,8 +25,11 @@ export class NewdatatableComponent implements AfterViewInit {
  dataSet:string[][]=[]
  
 ngAfterViewInit(): void {
+  this.isLoading=true;
+
   this.studentService.fetchStudents()
   .subscribe((data:any)=>{
+    this.isLoading=false;
     console.log(data)
     data.forEach((value:any)=>{
       delete value['Password']
@@ -83,7 +87,14 @@ ngAfterViewInit(): void {
               "orderable":      false,
               "data":           null,
               "defaultContent": "<button class='btn btn-primary'>More</button>"
-          }
+          },
+          {
+            title:" ",
+            "className":"details-more",
+            "orderable":      false,
+            "data":           null,
+            "defaultContent": "<button class='btn btn-primary'>See Profile</button>"
+        }
         ],
         
           "lengthChange": false
@@ -105,7 +116,13 @@ ngAfterViewInit(): void {
             row.child( that.format(row.data()) ).show();
             tr.addClass('shown');
         }
-      } );     
+      } ); 
+      $('#display tbody').on('click', '.details-more', function () {
+        var id = that.table1.row(this).data();
+        console.log(id[1]);
+        const router = that.injector.get(Router);
+        router.navigate(['/students', id[1]]);
+      });    
     })
     $('#display thead tr:eq(1) th').each( function () {
       var title = $(this).text();

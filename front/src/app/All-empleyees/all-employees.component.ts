@@ -1,3 +1,4 @@
+import { EmployeeService } from './../employee.service';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -31,13 +32,15 @@ export class AllEmployeesComponent implements OnInit {
     },
   ];
 
-  constructor(private _http: HttpClient, private _router: Router) {}
-  getEmployees() {
-    return this._http.get('http://localhost:3000/employee');
-  }
+  constructor(
+    private _http: HttpClient,
+    private _empservice: EmployeeService,
+    private _router: Router
+  ) {}
+
   ngOnInit() {
     this.isLoading = true;
-    this.getEmployees().subscribe(
+    this._empservice.fetchEmployees().subscribe(
       (data) => {
         this.isLoading = false;
         this.Employees = JSON.parse(JSON.stringify(data));

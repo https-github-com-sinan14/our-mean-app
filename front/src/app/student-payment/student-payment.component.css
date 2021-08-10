@@ -1,11 +1,40 @@
 #section {
-  margin-top: 5.6rem;
-  
-} 
+  margin-top: 3.75rem;
+}
+#heading {
+  text-align: center;
+  margin-top: 55px;
+  margin-bottom: 15px;
+  color: white;
+  font-size: larger;
+}
+.help-block {
+  color: red;
+}
+#section {
+  height: 100%;
+  width: 100%;
+  margin-bottom: 0;
+
+  background: #67b26f; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #4ca2cd,
+    #67b26f
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #4ca2cd,
+    #67b26f
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 0;
+
+  font-family: "Lato", sans-serif;
+  color: #000;
+}
 
 * {
   box-sizing: border-box;
- 
 }
 
 .row {
@@ -19,7 +48,6 @@
   /* margin: 0 -16px; */
   margin-left: -16px;
   margin-right: -16px;
-  
 }
 
 .col-25 {
@@ -50,14 +78,14 @@
   border-radius: 3px;
 }
 
-input[type=text] {
+input[type="text"] {
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
-input[type=number] {
+input[type="number"] {
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
@@ -80,7 +108,7 @@ label {
 }
 
 .btn {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 12px;
   margin: 10px 0;
@@ -96,7 +124,7 @@ label {
 }
 
 a {
-  color: #2196F3;
+  color: #2196f3;
 }
 
 hr {
@@ -117,7 +145,6 @@ span.price {
     margin-bottom: 20px;
   }
 }
-
 
 /* *************************** */
 
@@ -157,7 +184,7 @@ span.price {
   border-radius: 3px;
 }
 
-input[type=text] {
+input[type="text"] {
   width: 100%;
   margin-bottom: 20px;
   padding: 12px;
@@ -177,7 +204,7 @@ label {
 }
 
 .btn {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   padding: 12px;
   margin: 10px 0;

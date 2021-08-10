@@ -5,17 +5,18 @@ import Swal from 'sweetalert2';
 
 @Injectable()
 export class AuthService {
+  backendUrl = 'http://localhost:3000';
+  // backendUrl = '/api';
+
   constructor(private _http: HttpClient, private _router: Router) {}
   //*************** register employee and student ***************/
   toStudentProfile() {
     const id = this.getId();
-    this._router.navigate([`/students/${id}`])
-    
+    this._router.navigate([`/students/${id}`]);
   }
-  toEmployeeProfile(){
+  toEmployeeProfile() {
     const id = this.getId();
-    this._router.navigate(['/employees/'+id])
-
+    this._router.navigate(['/employees/' + id]);
   }
   getId() {
     return localStorage.getItem('navigator');
@@ -24,10 +25,9 @@ export class AuthService {
     return localStorage.getItem('Name');
   }
   logOut() {
-    
     const name = this.getName();
-    if(name==null){
-      const name = 'Admin'
+    if (name == null) {
+      const name = 'Admin';
     }
     Swal.fire({
       title: '😪',
@@ -42,16 +42,17 @@ export class AuthService {
       this._router.navigate(['/login']);
     });
   }
+  //*********************************        register ********************************/
 
   registerUser(StudentDetails: any) {
     return this._http.post(
-      'http://localhost:3000/students/register',
+      `${this.backendUrl}/students/register`,
       StudentDetails
     );
   }
   registerEmployee(EmployeeDetails: any) {
     return this._http.post(
-      'http://localhost:3000/employee/register',
+      `${this.backendUrl}/employee/register`,
       EmployeeDetails
     );
   }
@@ -59,19 +60,19 @@ export class AuthService {
   //************************** login employee and student *******************/
 
   loginUser(user: any) {
-    return this._http.post<any>('http://localhost:3000/students/login', user);
+    return this._http.post<any>(`${this.backendUrl}/students/login`, user);
   }
   loginEmployee(user: any) {
-    return this._http.post<any>('http://localhost:3000/employee/login', user);
+    return this._http.post<any>(`${this.backendUrl}/employee/login`, user);
   }
 
   //************************** reset employee and student password  ********************/
 
   resetStudentPassword(user: any) {
-    return this._http.put<any>('http://localhost:3000/students/reset', user);
+    return this._http.put<any>(`${this.backendUrl}/students/reset`, user);
   }
   resetEmployeePassword(user: any) {
-    return this._http.put<any>('http://localhost:3000/employee/reset', user);
+    return this._http.put<any>(`${this.backendUrl}/employee/reset`, user);
   }
 
   //************************** checking authentication  *******************/

@@ -75,7 +75,7 @@
                   <div class="form-group">
                     <input
                       class="form-control"
-                      min="1990-01-01"
+                      min="1980-01-01"
                       max="2000-01-01"
                       onfocus="(this.type='date')"
                       onblur="(this.type='text')"
@@ -293,6 +293,8 @@
                     <input
                       placeholder="enter pincode "
                       type="number"
+                      min="100000"
+                      max="999999"
                       class="form-control"
                       formControlName="PinCode"
                     />

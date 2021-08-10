@@ -65,7 +65,7 @@ export class LoginEmployeeComponent implements OnInit {
               timer: 600,
               showConfirmButton: false,
             }).then(() => {
-              this._router.navigate([`/employee-panel}`]);
+              this._router.navigate([`/employee-panel`]);
             });
           }
         } else {

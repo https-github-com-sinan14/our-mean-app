@@ -10,6 +10,7 @@ var imagedest = __dirname;
 var upload = multer({ dest: imagedest });
 const fs = require("fs");
 const generator = require("generate-password");
+
 //************************************************ */
 
 router.post("/register", upload.single("img"), (req, res) => {
@@ -36,7 +37,7 @@ router.post("/register", upload.single("img"), (req, res) => {
     ApprovalDate: req.body.ApprovalDate,
     Password: "NewRegister@ict",
     Suid: "New Register",
-    ExitExamMark:0,
+    ExitExamMark: 0,
     image: {
       data: fs.readFileSync(req.file.path),
       contentType: "image",
@@ -55,7 +56,7 @@ router.post("/register", upload.single("img"), (req, res) => {
 router.post(
   "/login",
   wrapAsync(async function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     const { Email, Password } = req.body;
     StudentData.findOne(
       { Email: Email, Password: Password },
@@ -65,7 +66,7 @@ router.post(
         } else if (foundUser) {
           const id = foundUser._id;
           const Name = foundUser.Name;
-          console.log("an user loginned");
+          // console.log("an user loginned");
           req.session.role = "user";
           const payload = { subject: Email, admin: false };
           const token = jwt.sign(payload, "secretKey", { expiresIn: "1h" });
@@ -99,6 +100,7 @@ router.put(
 
 router.get(
   "",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const Students = await StudentData.find();
     if (Students) {
@@ -127,6 +129,7 @@ router.get(
 //************************        profile update        ******************************/
 router.put(
   "/:id",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     // console.log(id);
@@ -136,9 +139,9 @@ router.put(
     });
     // console.log(Student);
     if (Student) {
-      return res.send({status:true});
+      return res.send({ status: true });
     } else {
-      return res.send({status:false});
+      return res.send({ status: false });
     }
   })
 );
@@ -146,6 +149,7 @@ router.put(
 //*******************           profiel photo update          ***********************/
 router.put(
   "/:id/profilepic",
+  verifyToken,
   upload.single("img"),
   wrapAsync(async (req, res) => {
     const { id } = req.params;
@@ -162,9 +166,9 @@ router.put(
       }
     );
     if (updatedimage) {
-      return res.send({status:true});
+      return res.send({ status: true });
     } else {
-      return res.send({status:false});
+      return res.send({ status: false });
     }
   })
 );
@@ -173,6 +177,7 @@ router.put(
 
 router.delete(
   "/:id",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const deletedStudent = await StudentData.findByIdAndDelete(req.params.id);
     if (deletedStudent) {
@@ -186,11 +191,12 @@ router.delete(
 // ********************       Mail sends on approving               ***************
 router.post(
   "/:id/approve",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const { Email, Course } = req.body.Student;
     // console.log(id);
-    const awsLink = 12;
+    const awsLink = "http://ec2-18-219-147-180.us-east-2.compute.amazonaws.com";
 
     const link = `${awsLink}/students/${id}/pay`;
     const transporter = nodemailer.createTransport({
@@ -210,18 +216,19 @@ router.post(
       subject: `You Selected`,
 
       html: `<p>you are receiving this email because ictak approved your request</p>
-      <p></p>
-      <p>for joining the course ${Course}</p><p></p>
+      <br />
+      <p>for joining the course ${Course}</p>
+      <br />
       <p>To complete the registration process Please click on the following link to pay the tution fee for the program</p>
-      <p></p>
+      <br />
       <p><b><a href="${link}">${link}</a></b></p>`,
     };
     transporter.sendMail(mailOptions, (err, response) => {
       if (err) {
-        console.log("there is an error", err);
+        // console.log("there is an error", err);
         return res.send({ status: false });
       } else {
-        console.log("here is the res", response);
+        // console.log("here is the res", response);
         return res.send({ status: true });
       }
     });
@@ -231,6 +238,7 @@ router.post(
 // ********************       Mail sends on rejecting               ***************
 router.post(
   "/:id/reject",
+  verifyToken,
   wrapAsync(async (req, res) => {
     const { id } = req.params;
     const { Course, Email } = req.body.Student;
@@ -321,22 +329,21 @@ router.put(
         subject: `payment received`,
 
         html: `<p>you are receiving this email because ictak received the payment done by you for the course${Course}</p>
-              <p></p>
+              <br />
               <p>now you can login to our site for details and to see your profile by using </p>
-              <p></p>
+              <br />
               <p>password : <strong><b><em>${studentPass}</em></b></strong></p>
-              <p></p>
+              <br />
               <p>your student id is : <b><em>${suid}</em></b></p>
-              <p></p>
+              <br />
               <p>you can also reset your password in your profile too</p>`,
       };
       transporter.sendMail(mailOptions, (err, response) => {
         if (err) {
-          console.log("there is an error", err);
+          // console.log("there is an error", err);
           return res.send(false);
         } else {
           // console.log("here is the res", response);
-          console.log(student);
           return res.send(true);
         }
       });

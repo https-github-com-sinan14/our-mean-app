@@ -262,7 +262,7 @@
                         class="form-control Border"
                         formControlName="PassOfYear"
                         type="number"
-                        min="2010"
+                        min="2000"
                         max="2021"
                         step="1"
                         [value]="employee.PassOfYear"
@@ -331,7 +331,7 @@
                 </table>
                 <div *ngIf="readonly">
                   <button
-                    *ngIf="showEditButton"
+                    *ngIf="owner || showDeleteButton"
                     (click)="update()"
                     class="btn btn-sm btn-warning"
                   >

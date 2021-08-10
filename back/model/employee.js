@@ -8,7 +8,7 @@ const EmployeeSchema = new Schema({
   Email: {
     type: String,
 
-    // unique: true,
+    unique: true,
   },
   Phone: {
     type: String,

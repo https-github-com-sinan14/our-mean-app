@@ -10,22 +10,61 @@
           /><a routerLink="">ICTAK</a>
         </h1>
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt=""></a> -->
+        <a href="index.html"><img src="assets/img/logo.png" alt="" /></a>
       </div>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li (click)="hero()">
-            <a class="nav-link scrollto" routerLink="home">Home</a>
+          <li>
+            <a
+              class="nav-link scrollto"
+              routerLink="employee-panel"
+              *ngIf="_auth.getUser() == 'employee'"
+              >Home
+            </a>
           </li>
-          <li (click)="about()">
+          <li>
+            <a
+              class="nav-link scrollto"
+              routerLink="admin-panel"
+              *ngIf="_auth.getUser() == 'admin'"
+              >Home</a
+            >
+          </li>
+          <li (click)="hero()">
+            <a
+              class="nav-link scrollto"
+              *ngIf="
+                !(_auth.getUser() == 'employee' || _auth.getUser() == 'admin')
+              "
+              routerLink="home"
+              >Home</a
+            >
+          </li>
+          <li
+            *ngIf="
+              !(_auth.getUser() == 'employee' || _auth.getUser() == 'admin')
+            "
+            (click)="about()"
+          >
             <a class="nav-link scrollto" routerLink="home" fragment="about"
               >About</a
             >
           </li>
 
-          <li *ngIf="_auth.loggedIn && _auth.getUser()=='admin'"><a class="nav-link" routerLink="employees">Employees</a></li>
-          <li *ngIf="_auth.loggedIn && (_auth.getUser()=='admin' || _auth.getUser()=='employee')"><a class="nav-link" routerLink="students">Students</a></li>
+          <li
+            *ngIf="_auth.getUser() == 'employee' || _auth.getUser() == 'admin'"
+          >
+            <a class="nav-link" routerLink="employees">Employees</a>
+          </li>
+          <li
+            *ngIf="
+              _auth.loggedIn &&
+              (_auth.getUser() == 'admin' || _auth.getUser() == 'employee')
+            "
+          >
+            <a class="nav-link" routerLink="students">Students</a>
+          </li>
 
           <li (click)="courses()">
             <a class="nav-link scrollto" routerLink="home" fragment="courses"
@@ -50,24 +89,24 @@
           <li *ngIf="!_auth.loggedIn()">
             <a class="nav-link" routerLink="register">Register</a>
           </li>
-          <li  *ngIf="!_auth.loggedIn()"><a class="nav-link" routerLink="login">Login</a></li>
-          <li  *ngIf="(_auth.getUser() == 'user')"><a class="nav-link" (click)="viewStudentProfile()">My Profile</a></li>
-          <li  *ngIf="(_auth.getUser() == 'employee')"><a class="nav-link" (click)="viewEmployeeProfile()">My Profile</a></li>
+          <li *ngIf="!_auth.loggedIn()">
+            <a class="nav-link" routerLink="login">Login</a>
+          </li>
+          <li *ngIf="_auth.getUser() == 'user'">
+            <a class="nav-link" (click)="viewStudentProfile()">My Profile</a>
+          </li>
+          <li *ngIf="_auth.getUser() == 'employee'">
+            <a class="nav-link" (click)="viewEmployeeProfile()">My Profile</a>
+          </li>
 
           <li *ngIf="_auth.loggedIn()">
-            <a
-              class="nav-link"
-              
-              style="cursor: pointer"
-              (click)="logoutUser()"
+            <a class="nav-link" style="cursor: pointer" (click)="logoutUser()"
               >Logout</a
             >
           </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
-      <!-- .navbar -->
     </div>
   </header>
-  <!-- End Header -->
 </section>

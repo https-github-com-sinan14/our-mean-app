@@ -4,34 +4,26 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmployeeService {
+  backendUrl = 'http://localhost:3000';
+  // backendUrl = '/api';
 
-  constructor(private _http: HttpClient,private _router:Router) {}
+  constructor(private _http: HttpClient, private _router: Router) {}
   fetchEmployee(id: any) {
-    return this._http.get('http://localhost:3000/employee/' + id);
+    return this._http.get(`${this.backendUrl}/employee/` + id);
   }
 
   fetchEmployees() {
-    return this._http.get('http://localhost:3000/employee');
+    return this._http.get(`${this.backendUrl}/employee`);
   }
 
   deleteEmployee(id: any) {
-    return this._http.delete('http://localhost:3000/employee/' + id).subscribe(
-      (studentData) => {
-        this._router.navigate([`/employee`]);
-      },
-      (errorMessage) => {
-        Swal.fire('danger!!', 'some internal error', 'error').then(
-          (refresh) => {}
-        );
-      }
-    );
+    return this._http.delete(`${this.backendUrl}/employee/` + id);
   }
-  editEmployee(Employee: any, id) {
+  editEmployee(changedDetails: any, id:any) {
     console.log('client update');
-    return this._http.put(`http://localhost:3000/employee/${id}`, { Employee });
+    return this._http.put(`${this.backendUrl}/employee/${id}`, changedDetails);
   }
-
 }
